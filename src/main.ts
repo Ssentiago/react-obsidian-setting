@@ -1,3 +1,4 @@
-import { ReactObsidianSetting } from './core/ObsidianSettingReact';
+import { ReactObsidianSetting} from './core/ObsidianSettingReact';
+import { MultiDescComponent } from './custom-components/multi-decsription/MultiDescComponent';
 
-export default ReactObsidianSetting
+export { ReactObsidianSetting, MultiDescComponent };
