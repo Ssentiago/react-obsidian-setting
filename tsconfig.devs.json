@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dev",
+    "esModuleInterop": true,
+    "removeComments": false
+  },
+  "exclude": ["**/*.js"],
+  "watchOptions": {
+    "watchDirectory": "usefsevents"
+  },
+  "buildOptions": {
+    "incremental": true
+  }
+}
