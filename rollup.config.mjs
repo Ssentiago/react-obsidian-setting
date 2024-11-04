@@ -9,7 +9,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 const baseConfig = {
     input: 'src/main.ts',
-    external: ['obsidian'],
+    external: ['obsidian', 'react'],
     plugins: [
         json(),
         nodeResolve({
