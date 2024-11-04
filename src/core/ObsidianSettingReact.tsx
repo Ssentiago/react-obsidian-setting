@@ -317,12 +317,12 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
             setupTextAreas(setting);
             setupToggles(setting);
             setupMultiDesc(setting);
-            setupButtons(setting);
             setupMomentFormats(setting);
             setupDropdowns(setting);
             setupSearches(setting);
-            setupExtraButtons(setting);
             setupSliders(setting);
+            setupButtons(setting);
+            setupExtraButtons(setting);
         },
         [
             name,
