@@ -4,22 +4,12 @@ interface MultiDescProps {
     containerEl?: HTMLDivElement;
 }
 
-export class MultiDescComponent extends Component<MultiDescProps> {
+export class MultiDescComponent {
     private element: HTMLDivElement | null = null;
 
     constructor(props: MultiDescProps) {
-        super(props);
         if (props.containerEl) {
             this.element = props.containerEl;
-        }
-    }
-
-    componentDidMount(): void {
-        const div = document.createElement('div');
-        this.element = div;
-
-        if (this.props.containerEl) {
-            this.props.containerEl.appendChild(div);
         }
     }
 
