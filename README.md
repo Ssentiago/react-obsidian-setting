@@ -1,10 +1,18 @@
-# What is this component about?
+# React Obsidian Setting Component
 
-I sometimes create plugins for Obsidian. I use React for plugins, including for the settings tab.
-I'm faced with the fact that in order to use the native Setting object from Obsidian, I need to either pass the containerEl object directly to the React component's props. It's not pretty. Or should I use multiple useEffect and useRef. This is also ugly and simply inconvenient. I wanted to create native Obsidian settings in a declarative React-like style. It is for this purpose that I wrote this little wrapper component.
+A declarative React wrapper for Obsidian's native Setting component.
 
-## What it looks like:
-Before:
+## Why?
+
+When developing Obsidian plugins with React, working with the native Setting object traditionally requires either:
+- Passing `containerEl` directly to React components (non-idiomatic)
+- Using multiple `useEffect` and `useRef` hooks (verbose and complex)
+
+This wrapper provides a clean, declarative React-style API for creating native Obsidian settings.
+
+## Usage Example
+
+### Traditional Approach
 ```jsx
 const Page = () => {
     const ref = useRef<HTMLElement | null>(null)
@@ -21,19 +29,24 @@ const Page = () => {
     return <div ref={ref}></div>
 }
 ```
-After:
+
+### With ReactObsidianSetting
+
 ```jsx
 const Page = () => {
     return (
         <ReactObsidianSetting
             name='Name'
             addButtons={[
-                    (button) => button.setIcon('save')
-            ]
-            }
+                (button) => button.setIcon('save')
+            ]}
         />
     )
 }
 ```
-
+## Features
+- Full TypeScript support
+- Supports all native Obsidian Setting components
+- Priority-based element ordering
+- Clean, declarative API
 
