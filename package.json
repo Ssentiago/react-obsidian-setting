@@ -7,6 +7,22 @@
     "type": "git",
     "url": "https://github.com/Ssentiago/react-obsidian-setting.git"
   },
+  "keywords": [
+    "obsidian",
+    "obsidian-plugin",
+    "settings",
+    "react",
+    "react-component",
+    "declarative",
+    "plugin-development",
+    "plugin",
+    "react-wrapper",
+    "typescript",
+    "obsidian-settings",
+    "ui-component",
+    "react-obsidian",
+    "plugin-settings"
+  ],
   "scripts": {
     "dev": "yarn rollup -c rollup.config.mjs -w --environment PRODUCTION:0",
     "build": "NODE_ENV=production yarn rollup -c rollup.config.mjs --environment PRODUCTION:1",
