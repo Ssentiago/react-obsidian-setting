@@ -15,26 +15,22 @@ import { MultiDescComponent } from '../custom-components/multi-decsription/Multi
 
 type ButtonCallback = (button: ButtonComponent) => ButtonComponent;
 type DropdownCallback = (dropdown: DropdownComponent) => DropdownComponent;
-type ExtraButtonCallback = (
-    button: ExtraButtonComponent
-) => ExtraButtonComponent;
-type AddMomentFormatCallback = (
-    momentFormat: MomentFormatComponent
-) => MomentFormatComponent;
+type ExtraButtonCallback = (button: ExtraButtonComponent) => ExtraButtonComponent;
+type AddMomentFormatCallback = (momentFormat: MomentFormatComponent) => MomentFormatComponent;
 type AddSearchCallback = (search: SearchComponent) => SearchComponent;
 type AddSliderCallback = (slider: SliderComponent) => SliderComponent;
 type AddTextCallback = (text: TextComponent) => TextComponent;
 type AddTextAreaCallback = (textArea: TextAreaComponent) => TextAreaComponent;
 type AddToggleCallback = (toggle: ToggleComponent) => ToggleComponent;
 type AddMultiDescCallback = (desc: MultiDescComponent) => MultiDescComponent;
-type SetupSettingManuallyCallback = (
-    setting: ObsidianSetting
-) => ObsidianSetting;
+type SetupSettingManuallyCallback = (setting: ObsidianSetting) => ObsidianSetting;
 
 interface PrioritizedElement<T> {
     callback: T;
     priority: number;
 }
+
+type SettingCallback<T> = T | PrioritizedElement<T> | undefined | false;
 
 interface ReactSetting extends ObsidianSetting {
     infoEl: HTMLDivElement;
@@ -42,66 +38,17 @@ interface ReactSetting extends ObsidianSetting {
 }
 
 interface SettingProps {
-    addButtons?: (
-        | ButtonCallback
-        | PrioritizedElement<ButtonCallback>
-        | undefined
-        | false
-    )[];
-    addDropdowns?: (
-        | DropdownCallback
-        | PrioritizedElement<DropdownCallback>
-        | undefined
-        | false
-    )[];
-    addExtraButtons?: (
-        | ExtraButtonCallback
-        | PrioritizedElement<ExtraButtonCallback>
-        | undefined
-        | false
-    )[];
-    addMomentFormats?: (
-        | AddMomentFormatCallback
-        | PrioritizedElement<AddMomentFormatCallback>
-        | undefined
-        | false
-    )[];
-    addSearches?: (
-        | AddSearchCallback
-        | PrioritizedElement<AddSearchCallback>
-        | undefined
-        | false
-    )[];
-    addSliders?: (
-        | AddSliderCallback
-        | PrioritizedElement<AddSliderCallback>
-        | undefined
-        | false
-    )[];
-    addTexts?: (
-        | AddTextCallback
-        | PrioritizedElement<AddTextCallback>
-        | undefined
-        | false
-    )[];
-    addTextAreas?: (
-        | AddTextAreaCallback
-        | PrioritizedElement<AddTextAreaCallback>
-        | undefined
-        | false
-    )[];
-    addToggles?: (
-        | AddToggleCallback
-        | PrioritizedElement<AddToggleCallback>
-        | undefined
-        | false
-    )[];
-    addMultiDesc?:
-        | AddMultiDescCallback
-        | PrioritizedElement<AddMultiDescCallback>
-        | undefined
-        | false;
-    setupSettingManually?: SetupSettingManuallyCallback | undefined;
+    addButtons?: SettingCallback<ButtonCallback>[];
+    addDropdowns?: SettingCallback<DropdownCallback>[];
+    addExtraButtons?: SettingCallback<ExtraButtonCallback>[];
+    addMomentFormats?: SettingCallback<AddMomentFormatCallback>[];
+    addSearches?: SettingCallback<AddSearchCallback>[];
+    addSliders?: SettingCallback<AddSliderCallback>[];
+    addTexts?: SettingCallback<AddTextCallback>[];
+    addTextAreas?: SettingCallback<AddTextAreaCallback>[];
+    addToggles?: SettingCallback<AddToggleCallback>[];
+    addMultiDesc?: SettingCallback<AddMultiDescCallback>;
+    setupSettingManually?: SetupSettingManuallyCallback;
     class?: string;
     desc?: string;
     name?: string;
@@ -110,166 +57,51 @@ interface SettingProps {
     noBorder?: boolean;
 }
 
-function sortByPriority<T>(
-    elements: (T | PrioritizedElement<T> | false | undefined)[]
-): T[] {
-    return elements
-        .filter(
-            (element): element is T | PrioritizedElement<T> =>
-                element !== undefined && element !== false
-        )
-        .map((element, index) => ({
-            callback: isPrioritizedElement(element)
-                ? element.callback
-                : element,
-            priority: isPrioritizedElement(element) ? element.priority : index,
-            originalIndex: index,
-        }))
-        .sort((a, b) => {
-            if (a.priority === b.priority) {
-                return a.originalIndex - b.originalIndex;
-            }
-            return a.priority - b.priority;
-        })
-        .map(({ callback }) => callback as T);
-}
-
-function isPrioritizedElement<T>(
-    element: T | PrioritizedElement<T>
-): element is PrioritizedElement<T> {
+function isPrioritizedElement<T>(element: T | PrioritizedElement<T>): element is PrioritizedElement<T> {
     return (element as PrioritizedElement<T>).priority !== undefined;
 }
 
+interface SettingElement {
+    type: string;
+    callback: any;
+    priority: number;
+    originalIndex: number;
+}
+
 export const ReactObsidianSetting: React.FC<SettingProps> = ({
-    name,
-    desc,
-    setHeading,
-    setDisabled,
-    noBorder,
-    class: className,
-    addToggles,
-    addTexts,
-    addTextAreas,
-    addMomentFormats,
-    addDropdowns,
-    addSearches,
-    addButtons,
-    addExtraButtons,
-    addSliders,
-    addMultiDesc,
-    setupSettingManually,
-}) => {
+                                                                 name,
+                                                                 desc,
+                                                                 setHeading,
+                                                                 setDisabled,
+                                                                 noBorder,
+                                                                 class: className,
+                                                                 addToggles,
+                                                                 addTexts,
+                                                                 addTextAreas,
+                                                                 addMomentFormats,
+                                                                 addDropdowns,
+                                                                 addSearches,
+                                                                 addButtons,
+                                                                 addExtraButtons,
+                                                                 addSliders,
+                                                                 addMultiDesc,
+                                                                 setupSettingManually,
+                                                             }) => {
     const settingRef = React.useRef<ReactSetting>();
     const containerRef = React.useRef<HTMLDivElement>(null);
 
-    const setupElements = useCallback(
-        <T,>(
-            elements:
-                | (T | PrioritizedElement<T> | undefined | false)[]
-                | undefined,
-            addFunction: (setting: ReactSetting, callback: T) => void
-        ) => {
-            if (!elements?.length) {
-                return;
-            }
+    const setupSetting = useCallback((setting: ReactSetting) => {
+        if (setupSettingManually) {
+            setupSettingManually(setting);
+        }
+        if (name) {
+            setting.setName(name);
+        }
+        if (desc) {
+            setting.setDesc(desc);
+        }
 
-            const sortedCallbacks = sortByPriority(elements);
-            return (setting: ReactSetting) => {
-                sortedCallbacks.forEach((callback) =>
-                    addFunction(setting, callback)
-                );
-            };
-        },
-        []
-    );
-
-    const setupToggles = useCallback(
-        (setting: ReactSetting) => {
-            setupElements(addToggles, (s, callback) => s.addToggle(callback))?.(
-                setting
-            );
-        },
-        [addToggles, setupElements]
-    );
-
-    const setupButtons = useCallback(
-        (setting: ReactSetting) => {
-            setupElements(addButtons, (s, callback) => s.addButton(callback))?.(
-                setting
-            );
-        },
-        [addButtons, setupElements]
-    );
-
-    const setupTexts = useCallback(
-        (setting: ReactSetting) => {
-            setupElements(addTexts, (s, callback) => s.addText(callback))?.(
-                setting
-            );
-        },
-        [addTexts, setupElements]
-    );
-
-    const setupTextAreas = useCallback(
-        (setting: ReactSetting) => {
-            setupElements(addTextAreas, (s, callback) =>
-                s.addTextArea(callback)
-            )?.(setting);
-        },
-        [addTextAreas, setupElements]
-    );
-
-    const setupMomentFormats = useCallback(
-        (setting: ReactSetting) => {
-            setupElements(addMomentFormats, (s, callback) =>
-                s.addMomentFormat(callback)
-            )?.(setting);
-        },
-        [addMomentFormats, setupElements]
-    );
-
-    const setupDropdowns = useCallback(
-        (setting: ReactSetting) => {
-            setupElements(addDropdowns, (s, callback) =>
-                s.addDropdown(callback)
-            )?.(setting);
-        },
-        [addDropdowns, setupElements]
-    );
-
-    const setupSearches = useCallback(
-        (setting: ReactSetting) => {
-            setupElements(addSearches, (s, callback) =>
-                s.addSearch(callback)
-            )?.(setting);
-        },
-        [addSearches, setupElements]
-    );
-
-    const setupExtraButtons = useCallback(
-        (setting: ReactSetting) => {
-            setupElements(addExtraButtons, (s, callback) =>
-                s.addExtraButton(callback)
-            )?.(setting);
-        },
-        [addExtraButtons, setupElements]
-    );
-
-    const setupSliders = useCallback(
-        (setting: ReactSetting) => {
-            setupElements(addSliders, (s, callback) => s.addSlider(callback))?.(
-                setting
-            );
-        },
-        [addSliders, setupElements]
-    );
-
-    const setupMultiDesc = useCallback(
-        (setting: ReactSetting) => {
-            if (!addMultiDesc) {
-                return;
-            }
-
+        if (addMultiDesc) {
             const callback = isPrioritizedElement(addMultiDesc)
                 ? addMultiDesc.callback
                 : addMultiDesc;
@@ -286,61 +118,136 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
             });
 
             callback(multiDesc);
-        },
-        [addMultiDesc]
-    );
+        }
 
-    const setupSetting = useCallback(
-        (setting: ReactSetting) => {
-            if (setupSettingManually) {
-                setupSettingManually(setting);
-            }
-            if (name) {
-                setting.setName(name);
-            }
-            if (desc) {
-                setting.setDesc(desc);
-            }
-            if (setHeading) {
-                setting.setHeading();
-            }
 
-            if (setDisabled) {
-                setting.setDisabled(setDisabled);
-            }
+        if (setHeading) {
+            setting.setHeading();
+        }
+        if (setDisabled) {
+            setting.setDisabled(setDisabled);
+        }
+        if (className) {
+            setting.setClass(className);
+        }
 
-            if (className) {
-                setting.setClass(className);
-            }
+        const elements: SettingElement[] = [
+            ...(addToggles?.map((toggle, index) => ({
+                type: 'toggle',
+                callback: isPrioritizedElement(toggle) ? toggle.callback : toggle,
+                priority: isPrioritizedElement(toggle) ? toggle.priority : 0,
+                originalIndex: index
+            })) ?? []),
+            ...(addTexts?.map((text, index) => ({
+                type: 'text',
+                callback: isPrioritizedElement(text) ? text.callback : text,
+                priority: isPrioritizedElement(text) ? text.priority : 0,
+                originalIndex: index
+            })) ?? []),
+            ...(addTextAreas?.map((textArea, index) => ({
+                type: 'textArea',
+                callback: isPrioritizedElement(textArea) ? textArea.callback : textArea,
+                priority: isPrioritizedElement(textArea) ? textArea.priority : 0,
+                originalIndex: index
+            })) ?? []),
+            ...(addMomentFormats?.map((format, index) => ({
+                type: 'momentFormat',
+                callback: isPrioritizedElement(format) ? format.callback : format,
+                priority: isPrioritizedElement(format) ? format.priority : 0,
+                originalIndex: index
+            })) ?? []),
+            ...(addDropdowns?.map((dropdown, index) => ({
+                type: 'dropdown',
+                callback: isPrioritizedElement(dropdown) ? dropdown.callback : dropdown,
+                priority: isPrioritizedElement(dropdown) ? dropdown.priority : 0,
+                originalIndex: index
+            })) ?? []),
+            ...(addSearches?.map((search, index) => ({
+                type: 'search',
+                callback: isPrioritizedElement(search) ? search.callback : search,
+                priority: isPrioritizedElement(search) ? search.priority : 0,
+                originalIndex: index
+            })) ?? []),
+            ...(addButtons?.map((button, index) => ({
+                type: 'button',
+                callback: isPrioritizedElement(button) ? button.callback : button,
+                priority: isPrioritizedElement(button) ? button.priority : 0,
+                originalIndex: index
+            })) ?? []),
+            ...(addExtraButtons?.map((button, index) => ({
+                type: 'extraButton',
+                callback: isPrioritizedElement(button) ? button.callback : button,
+                priority: isPrioritizedElement(button) ? button.priority : 0,
+                originalIndex: index
+            })) ?? []),
+            ...(addSliders?.map((slider, index) => ({
+                type: 'slider',
+                callback: isPrioritizedElement(slider) ? slider.callback : slider,
+                priority: isPrioritizedElement(slider) ? slider.priority : 0,
+                originalIndex: index
+            })) ?? [])
+        ].filter((element): element is SettingElement =>
+            element.callback !== undefined && element.callback !== false
+        );
 
-            setupTexts(setting);
-            setupTextAreas(setting);
-            setupToggles(setting);
-            setupMultiDesc(setting);
-            setupMomentFormats(setting);
-            setupDropdowns(setting);
-            setupSearches(setting);
-            setupSliders(setting);
-            setupButtons(setting);
-            setupExtraButtons(setting);
-        },
-        [
-            name,
-            desc,
-            setHeading,
-            className,
-            setupToggles,
-            setupButtons,
-            setupTexts,
-            setupTextAreas,
-            setupMomentFormats,
-            setupDropdowns,
-            setupSearches,
-            setupExtraButtons,
-            setupSliders,
-            setupMultiDesc,
-        ]
-    );
+        const sortedElements = elements.sort((a, b) => {
+            if (a.priority === b.priority) {
+                return a.originalIndex - b.originalIndex;
+            }
+            return a.priority - b.priority;
+        });
+
+        sortedElements.forEach((element) => {
+            switch (element.type) {
+                case 'toggle':
+                    setting.addToggle(element.callback);
+                    break;
+                case 'text':
+                    setting.addText(element.callback);
+                    break;
+                case 'textArea':
+                    setting.addTextArea(element.callback);
+                    break;
+                case 'momentFormat':
+                    setting.addMomentFormat(element.callback);
+                    break;
+                case 'dropdown':
+                    setting.addDropdown(element.callback);
+                    break;
+                case 'search':
+                    setting.addSearch(element.callback);
+                    break;
+                case 'button':
+                    setting.addButton(element.callback);
+                    break;
+                case 'extraButton':
+                    setting.addExtraButton(element.callback);
+                    break;
+                case 'slider':
+                    setting.addSlider(element.callback);
+                    break;
+            }
+        });
+
+
+    }, [
+        name,
+        desc,
+        setHeading,
+        setDisabled,
+        className,
+        addToggles,
+        addTexts,
+        addTextAreas,
+        addMomentFormats,
+        addDropdowns,
+        addSearches,
+        addButtons,
+        addExtraButtons,
+        addSliders,
+        addMultiDesc,
+        setupSettingManually,
+    ]);
 
     useLayoutEffect(() => {
         if (!containerRef.current) {
@@ -348,9 +255,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
         }
 
         containerRef.current.empty();
-        settingRef.current = new ObsidianSetting(
-            containerRef.current
-        ) as ReactSetting;
+        settingRef.current = new ObsidianSetting(containerRef.current) as ReactSetting;
         setupSetting(settingRef.current);
 
         return () => {
