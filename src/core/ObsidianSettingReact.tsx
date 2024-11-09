@@ -242,7 +242,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
                 ? addDetailsSummary.callback
                 : addDetailsSummary;
 
-            detailsSummaryRef.current = new DetailsSummaryComponent(setting.settingEl);
+            detailsSummaryRef.current = new DetailsSummaryComponent(setting.controlEl);
             callback(detailsSummaryRef.current);
         }
 
