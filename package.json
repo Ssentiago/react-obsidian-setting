@@ -3,6 +3,10 @@
   "packageManager": "yarn@4.3.1",
   "version": "1.0.8",
   "main": "./src/main.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ssentiago/react-obsidian-setting.git"
+  },
   "scripts": {
     "dev": "yarn rollup -c rollup.config.mjs -w --environment PRODUCTION:0",
     "build": "NODE_ENV=production yarn rollup -c rollup.config.mjs --environment PRODUCTION:1",
@@ -10,8 +14,7 @@
   },
   "dependencies": {
     "obsidian": "^1.7.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^18.3.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.1",

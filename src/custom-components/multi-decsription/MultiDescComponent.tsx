@@ -1,5 +1,3 @@
-import React, { Component } from 'react';
-
 interface MultiDescProps {
     containerEl?: HTMLDivElement;
 }
