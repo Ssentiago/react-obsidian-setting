@@ -12,7 +12,6 @@ import {
     ToggleComponent,
 } from 'obsidian';
 import { MultiDescComponent } from '../custom-components/multi-decsription/MultiDescComponent';
-import DetailsSummaryComponent from '../custom-components/details-summary/details-summary';
 
 type ButtonCallback = (button: ButtonComponent) => ButtonComponent;
 type DropdownCallback = (dropdown: DropdownComponent) => DropdownComponent;
@@ -24,7 +23,6 @@ type AddTextCallback = (text: TextComponent) => TextComponent;
 type AddTextAreaCallback = (textArea: TextAreaComponent) => TextAreaComponent;
 type AddToggleCallback = (toggle: ToggleComponent) => ToggleComponent;
 type AddMultiDescCallback = (desc: MultiDescComponent) => MultiDescComponent;
-type AddDetailsSummaryCallback = (detailsSummary: DetailsSummaryComponent) => DetailsSummaryComponent;
 type SetupSettingManuallyCallback = (setting: ObsidianSetting) => ObsidianSetting;
 
 
@@ -51,7 +49,6 @@ interface SettingProps {
     addTextAreas?: SettingCallback<AddTextAreaCallback>[];
     addToggles?: SettingCallback<AddToggleCallback>[];
     addMultiDesc?: SettingCallback<AddMultiDescCallback>;
-    addDetailsSummary?: SettingCallback<AddDetailsSummaryCallback>;
     setupSettingManually?: SetupSettingManuallyCallback;
     class?: string;
     desc?: string;
@@ -89,12 +86,10 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
                                                                  addExtraButtons,
                                                                  addSliders,
                                                                  addMultiDesc,
-                                                                 addDetailsSummary,
                                                                  setupSettingManually,
                                                              }) => {
     const settingRef = React.useRef<ReactSetting>();
     const containerRef = React.useRef<HTMLDivElement>(null);
-    const detailsSummaryRef = React.useRef<DetailsSummaryComponent | null>(null);
 
     const setupSetting = useCallback((setting: ReactSetting) => {
         if (setupSettingManually) {
@@ -237,14 +232,6 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
             }
         });
 
-        if (addDetailsSummary) {
-            const callback = isPrioritizedElement(addDetailsSummary)
-                ? addDetailsSummary.callback
-                : addDetailsSummary;
-
-            detailsSummaryRef.current = new DetailsSummaryComponent(setting.controlEl);
-            callback(detailsSummaryRef.current);
-        }
 
 
     }, [
@@ -277,9 +264,6 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
 
         return () => {
             containerRef.current?.empty();
-            if (detailsSummaryRef.current) {
-                detailsSummaryRef.current.cleanup();
-            }
         };
     }, [setupSetting]);
 
