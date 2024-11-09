@@ -44,9 +44,3 @@ const Page = () => {
     )
 }
 ```
-## Features
-- Full TypeScript support
-- Supports all native Obsidian Setting components
-- Priority-based element ordering
-- Clean, declarative API
-
