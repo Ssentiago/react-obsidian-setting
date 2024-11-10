@@ -29,10 +29,10 @@
     "lint": "yarn eslint src --ext .ts"
   },
   "dependencies": {
-    "obsidian": "^1.7.2",
-    "react": "^18.3.1"
   },
   "devDependencies": {
+    "obsidian": "^1.7.2",
+    "react": "^18.3.1",
     "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.3.0",
