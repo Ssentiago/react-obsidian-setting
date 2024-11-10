@@ -119,10 +119,13 @@ const Page = () => {
 />
 ```
 
+
+## Advanced Props
+
 ### setupSettingManually
-- Type: `boolean`
+- Type: `(setting: ObsidianSetting) => ObsidianSetting`
 - Optional
-- When true, returns a Setting object in the callback. You can configure it manually, just like a normal imperative-style Setting.
+- Takes a callback and returns a Setting object that users can configure themselves, in a declarative Obsidian-like style
 - Example:
 ```tsx
 <ReactObsidianSetting 
@@ -133,8 +136,6 @@ const Page = () => {
     }}
 />
 ```
-
-## Advanced Props
 
 ### `addToggles`
 - Type: `SettingCallback<ButtonCallback>[]`
