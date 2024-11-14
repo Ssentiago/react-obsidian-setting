@@ -1,12 +1,12 @@
 import { Setting as ObsidianSetting } from 'obsidian';
 import {
-    AddMomentFormatCallback,
-    AddMultiDescCallback,
-    AddSearchCallback,
-    AddSliderCallback,
-    AddTextAreaCallback,
-    AddTextCallback,
-    AddToggleCallback,
+    MomentFormatCallback,
+    MultiDescCallback,
+    SearchCallback,
+    SliderCallback,
+    TextAreaCallback,
+    TextCallback,
+    ToggleCallback,
     ButtonCallback,
     DropdownCallback,
     ExtraButtonCallback,
@@ -20,13 +20,13 @@ export interface SettingProps {
     addButtons?: SettingCallback<ButtonCallback>[];
     addDropdowns?: SettingCallback<DropdownCallback>[];
     addExtraButtons?: SettingCallback<ExtraButtonCallback>[];
-    addMomentFormats?: SettingCallback<AddMomentFormatCallback>[];
-    addSearches?: SettingCallback<AddSearchCallback>[];
-    addSliders?: SettingCallback<AddSliderCallback>[];
-    addTexts?: SettingCallback<AddTextCallback>[];
-    addTextAreas?: SettingCallback<AddTextAreaCallback>[];
-    addToggles?: SettingCallback<AddToggleCallback>[];
-    addMultiDesc?: SettingCallback<AddMultiDescCallback>;
+    addMomentFormats?: SettingCallback<MomentFormatCallback>[];
+    addSearches?: SettingCallback<SearchCallback>[];
+    addSliders?: SettingCallback<SliderCallback>[];
+    addTexts?: SettingCallback<TextCallback>[];
+    addTextAreas?: SettingCallback<TextAreaCallback>[];
+    addToggles?: SettingCallback<ToggleCallback>[];
+    addMultiDesc?: SettingCallback<MultiDescCallback>;
     setupSettingManually?: SetupSettingManuallyCallback;
     class?: string;
     desc?: string;

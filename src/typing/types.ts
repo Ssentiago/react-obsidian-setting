@@ -22,17 +22,17 @@ export type DropdownCallback = (
 export type ExtraButtonCallback = (
     button: ExtraButtonComponent
 ) => ExtraButtonComponent;
-export type AddMomentFormatCallback = (
+export type MomentFormatCallback = (
     momentFormat: MomentFormatComponent
 ) => MomentFormatComponent;
-export type AddSearchCallback = (search: SearchComponent) => SearchComponent;
-export type AddSliderCallback = (slider: SliderComponent) => SliderComponent;
-export type AddTextCallback = (text: TextComponent) => TextComponent;
-export type AddTextAreaCallback = (
+export type SearchCallback = (search: SearchComponent) => SearchComponent;
+export type SliderCallback = (slider: SliderComponent) => SliderComponent;
+export type TextCallback = (text: TextComponent) => TextComponent;
+export type TextAreaCallback = (
     textArea: TextAreaComponent
 ) => TextAreaComponent;
-export type AddToggleCallback = (toggle: ToggleComponent) => ToggleComponent;
-export type AddMultiDescCallback = (
+export type ToggleCallback = (toggle: ToggleComponent) => ToggleComponent;
+export type MultiDescCallback = (
     desc: MultiDescComponent
 ) => MultiDescComponent;
 export type SetupSettingManuallyCallback = (
