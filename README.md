@@ -110,7 +110,7 @@ const Page = () => {
 ### `noBorder`
 - Type: `boolean`
 - Optional
-- When true, removes the border from the setting
+- When true, removes the bottom border from the setting
 - Example:
 ```tsx
 <ReactObsidianSetting 
@@ -138,19 +138,32 @@ const Page = () => {
 />
 ```
 
-### `addToggles`
-- Type: `SettingCallback<ToggleCallback>[]`
-- Add toggle switches to the setting
+### `addButtons`
+- Type: `SettingCallback<ButtonCallback>[]`
+- Add button elements
 - Example:
 ```tsx
 <ReactObsidianSetting
-    name="Feature Toggle"
-    addToggles={[
-        (toggle) => toggle
-            .setValue(settings.enabled)
-            .onChange((value) => {
-                settings.enabled = value;
-            })
+    name="Actions"
+    addButtons={[
+        (button) => button
+            .setButtonText("Save Changes")
+            .onClick(() => saveChanges())
+    ]}
+/>
+```
+
+### `addExtraButtons`
+- Type: `SettingCallback<ExtraButtonCallback>[]`
+- Add extra button elements
+- Example:
+```tsx
+<ReactObsidianSetting
+    name="Additional Actions"
+    addExtraButtons={[
+        (button) => button
+            .setIcon("trash")
+            .onClick(() => deleteItem())
     ]}
 />
 ```
@@ -213,37 +226,106 @@ const Page = () => {
 />
 ```
 
-### `addButtons`
-- Type: `SettingCallback<ButtonCallback>[]`
-- Add button elements
+### `addToggles`
+- Type: `SettingCallback<ToggleCallback>[]`
+- Add toggle switches to the setting
 - Example:
 ```tsx
 <ReactObsidianSetting
-    name="Actions"
-    addButtons={[
-        (button) => button
-            .setButtonText("Save Changes")
-            .onClick(() => saveChanges())
+    name="Feature Toggle"
+    addToggles={[
+        (toggle) => toggle
+            .setValue(settings.enabled)
+            .onChange((value) => {
+                settings.enabled = value;
+            })
     ]}
 />
 ```
 
-### `addExtraButtons`
-- Type: `SettingCallback<ExtraButtonCallback>[]`
-- Add extra button elements
+### `addMomentFormats`
+- Type: `SettingCallback<MomentFormatCallback>[]`
+- Add moment format selectors to the setting
 - Example:
 ```tsx
 <ReactObsidianSetting
-    name="Additional Actions"
-    addExtraButtons={[
-        (button) => button
-            .setIcon("trash")
-            .onClick(() => deleteItem())
+    name="Date Format"
+    addMomentFormats={[
+        (momentFormat) => momentFormat
+            .setValue(settings.dateFormat)
+            .onChange((value) => {
+                // ...
+            })
+    ]}
+/>
+```
+### `addSearches`
+- Type: `SettingCallback<SearchCallback>[]`
+- Add search boxes to the setting
+- Example:
+```tsx
+<ReactObsidianSetting
+    name="Search"
+    addSearches={[
+        (search) => search
+            .setValue('value')
+            .onChange((value) => {
+                // ...
+            })
     ]}
 />
 ```
 
+### `addSliders`
+- Type: `SettingCallback<SliderCallback>[]`
+- Add sliders to the setting
+- Example:
+```tsx
+<ReactObsidianSetting
+    name="Slider"
+    addSliders={[
+        (slider) => slider
+            .setValue(50)
+            .onChange((value) => {
+                // ...
+            })
+    ]}
+/>
+```
 
+### `addColorPickers`
+- Type: `SettingCallback<ColorPickerCallback>[]`
+- Add color pickers to the setting
+- Example:
+```tsx
+<ReactObsidianSetting
+    name="Color Picker"
+    addColorPickers={[
+        (colorPicker) => colorPicker
+            .setValue("#ff0000")
+            .onChange((value) => {
+                // ...
+            })
+    ]}
+/>
+```
+
+### `addProgressBars`
+- Type: `SettingCallback<ProgressBarCallback>[]`
+- Add progress bars to the setting
+- Example:
+```tsx
+<ReactObsidianSetting
+    name="Progress Bar"
+    addProgressBars={[
+        (progressBar) => progressBar
+            .setValue(50)
+            .onChange((value) => {
+                // ...
+            })
+    ]}
+/>
+```
 
 ### `addMultiDesc`
 - Type: `SettingCallback<MultiDescCallback>`
