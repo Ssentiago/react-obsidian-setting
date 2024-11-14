@@ -31,6 +31,8 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
     addButtons,
     addExtraButtons,
     addSliders,
+    addColorPickers,
+    addProgressBars,
     addMultiDesc,
     setupSettingManually,
 }) => {
@@ -135,6 +137,26 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
                         : 0,
                     originalIndex: index,
                 })) ?? []),
+                ...(addColorPickers?.map((colorPicker, index) => ({
+                    type: 'colorPicker',
+                    callback: isPrioritizedElement(colorPicker)
+                        ? colorPicker.callback
+                        : colorPicker,
+                    priority: isPrioritizedElement(colorPicker)
+                        ? colorPicker.priority
+                        : 0,
+                    originalIndex: index,
+                })) ?? []),
+                ...(addProgressBars?.map((progressBar, index) => ({
+                    type: 'progressBar',
+                    callback: isPrioritizedElement(progressBar)
+                        ? progressBar.callback
+                        : progressBar,
+                    priority: isPrioritizedElement(progressBar)
+                        ? progressBar.priority
+                        : 0,
+                    originalIndex: index,
+                })) ?? []),
                 ...(addButtons?.map((button, index) => ({
                     type: 'button',
                     callback: isPrioritizedElement(button)
@@ -197,6 +219,12 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
                     case 'search':
                         setting.addSearch(element.callback);
                         break;
+                    case 'colorPicker':
+                        setting.addColorPicker(element.callback);
+                        break;
+                    case 'progressBar':
+                        setting.addProgressBar(element.callback);
+                        break;
                     case 'button':
                         setting.addButton(element.callback);
                         break;
@@ -224,6 +252,8 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
             addButtons,
             addExtraButtons,
             addSliders,
+            addColorPickers,
+            addProgressBars,
             addMultiDesc,
             setupSettingManually,
         ]

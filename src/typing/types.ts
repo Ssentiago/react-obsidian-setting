@@ -1,8 +1,10 @@
 import {
     ButtonComponent,
+    ColorComponent,
     DropdownComponent,
     ExtraButtonComponent,
     MomentFormatComponent,
+    ProgressBarComponent,
     SearchComponent,
     Setting as ObsidianSetting,
     SliderComponent,
@@ -32,6 +34,12 @@ export type TextAreaCallback = (
     textArea: TextAreaComponent
 ) => TextAreaComponent;
 export type ToggleCallback = (toggle: ToggleComponent) => ToggleComponent;
+export type ColorPickerCallback = (
+    colorPicker: ColorComponent
+) => ColorComponent;
+export type ProgressBarCallback = (
+    progressBar: ProgressBarComponent
+) => ProgressBarComponent;
 export type MultiDescCallback = (
     desc: MultiDescComponent
 ) => MultiDescComponent;
