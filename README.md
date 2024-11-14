@@ -133,12 +133,13 @@ const Page = () => {
     setupSettingManually={(setting) => {
         setting.setName('Custom Setting');
         setting.setDesc('This is a custom setting');
+        return setting
     }}
 />
 ```
 
 ### `addToggles`
-- Type: `SettingCallback<ButtonCallback>[]`
+- Type: `SettingCallback<ToggleCallback>[]`
 - Add toggle switches to the setting
 - Example:
 ```tsx
@@ -245,7 +246,7 @@ const Page = () => {
 
 
 ### `addMultiDesc`
-- Type: `SettingCallback<AddMultiDescCallback>`
+- Type: `SettingCallback<MultiDescCallback>`
 - Add multiple descriptions
 - Example:
 ```tsx
@@ -260,8 +261,6 @@ const Page = () => {
     }}
 />
 ```
-
-
 
 ### Priority System
 
@@ -283,41 +282,6 @@ You can control the rendering order of components using priorities. Components w
         }
     ]}
 />
-```
-
-
-
-
-
-## TypeScript Types
-
-```typescript
-type SettingCallback<T> = T | PrioritizedElement<T> | undefined | false;
-
-interface PrioritizedElement<T> {
-    callback: T;
-    priority: number;
-}
-
-interface SettingProps {
-    name?: string;
-    desc?: string;
-    class?: string;
-    setHeading?: boolean;
-    setDisabled?: boolean;
-    noBorder?: boolean;
-    addButtons?: SettingCallback<ButtonCallback>[];
-    addDropdowns?: SettingCallback<DropdownCallback>[];
-    addExtraButtons?: SettingCallback<ExtraButtonCallback>[];
-    addMomentFormats?: SettingCallback<AddMomentFormatCallback>[];
-    addSearches?: SettingCallback<AddSearchCallback>[];
-    addSliders?: SettingCallback<AddSliderCallback>[];
-    addTexts?: SettingCallback<AddTextCallback>[];
-    addTextAreas?: SettingCallback<AddTextAreaCallback>[];
-    addToggles?: SettingCallback<AddToggleCallback>[];
-    addMultiDesc?: SettingCallback<AddMultiDescCallback>;
-    setupSettingManually?: SetupSettingManuallyCallback;
-}
 ```
 
 ## Notes
