@@ -164,7 +164,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
                         : button,
                     priority: isPrioritizedElement(button)
                         ? button.priority
-                        : 0,
+                        : 9,
                     originalIndex: index,
                 })) ?? []),
                 ...(addExtraButtons?.map((button, index) => ({
@@ -174,7 +174,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
                         : button,
                     priority: isPrioritizedElement(button)
                         ? button.priority
-                        : 0,
+                        : 10,
                     originalIndex: index,
                 })) ?? []),
                 ...(addSliders?.map((slider, index) => ({
