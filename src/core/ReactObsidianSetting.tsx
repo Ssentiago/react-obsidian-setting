@@ -73,9 +73,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
             if (setHeading) {
                 setting.setHeading();
             }
-            if (setDisabled) {
-                setting.setDisabled(setDisabled);
-            }
+            setting.setDisabled(!!setDisabled);
             if (className) {
                 setting.setClass(className);
             }
