@@ -24,6 +24,7 @@ export interface SettingProps {
     class?: string;
     setHeading?: boolean;
     setDisabled?: boolean;
+    setTooltip?: string,
     noBorder?: boolean;
     setupSettingManually?: SetupSettingManuallyCallback;
     addButtons?: SettingCallback<ButtonCallback>[];

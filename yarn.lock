@@ -1202,16 +1202,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"obsidian@npm:^1.7.2":
-  version: 1.7.2
-  resolution: "obsidian@npm:1.7.2"
+"obsidian@npm:^1.8.7":
+  version: 1.8.7
+  resolution: "obsidian@npm:1.8.7"
   dependencies:
     "@types/codemirror": "npm:5.60.8"
     moment: "npm:2.29.4"
   peerDependencies:
     "@codemirror/state": ^6.0.0
     "@codemirror/view": ^6.0.0
-  checksum: 10c0/7ad1e97e0a21e5011640a8c02bdd74844ccf22d12c84ad8fcd653bc11cde47422e7dce38142d4659f8bca5f2043ce7f849e750765ac8052fed8770d37cbf39a6
+  checksum: 10c0/b03fdaf5a2c950c9f737f2dcf830e90aa8e0565cb68f2ffcbe10dd5a02a642efa2a141095e18ee7d1ae50adbe7ab694f2e66094ebf88a7a36e7c329d034c1a05
   languageName: node
   linkType: hard
 
@@ -1343,7 +1343,7 @@ __metadata:
     "@rollup/plugin-typescript": "npm:^12.1.1"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
-    obsidian: "npm:^1.7.2"
+    obsidian: "npm:^1.8.7"
     react: "npm:^18.3.1"
     rollup: "npm:^4.24.2"
     rollup-plugin-visualizer: "npm:^5.12.0"

@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import { Setting as ObsidianSetting } from 'obsidian';
 import { MultiDescComponent } from '../custom-components/multi-decsription/MultiDescComponent';
 import {
@@ -20,6 +20,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
     desc,
     setHeading,
     setDisabled,
+                                                                 setTooltip,
     noBorder,
     class: className,
     addToggles,
@@ -51,6 +52,10 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
                 setting.setDesc(desc);
             }
 
+            if (setTooltip) {
+                setting.setTooltip(setTooltip)
+            }
+
             if (addMultiDesc) {
                 const callback = isPrioritizedElement(addMultiDesc)
                     ? addMultiDesc.callback
@@ -73,7 +78,6 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
             if (setHeading) {
                 setting.setHeading();
             }
-            setting.setDisabled(!!setDisabled);
             if (className) {
                 setting.setClass(className);
             }
@@ -234,12 +238,15 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
                         break;
                 }
             });
+
+            setting.setDisabled(!!setDisabled)
         },
         [
             name,
             desc,
             setHeading,
             setDisabled,
+            setTooltip,
             className,
             addToggles,
             addTexts,
@@ -271,7 +278,28 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
         return () => {
             containerRef.current?.empty();
         };
-    }, [setupSetting]);
+    }, [[
+        name,
+        desc,
+        setHeading,
+        setDisabled,
+        setTooltip,
+        noBorder,
+        className,
+        addToggles,
+        addTexts,
+        addTextAreas,
+        addMomentFormats,
+        addDropdowns,
+        addSearches,
+        addButtons,
+        addExtraButtons,
+        addSliders,
+        addColorPickers,
+        addProgressBars,
+        addMultiDesc,
+        setupSettingManually
+    ]]);
 
     return (
         <SettingWrapper
