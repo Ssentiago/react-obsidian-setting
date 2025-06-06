@@ -1,7 +1,7 @@
 {
   "name": "react-obsidian-setting",
   "packageManager": "yarn@4.3.1",
-  "version": "1.0.25",
+  "version": "1.0.32",
   "main": "./src/main.ts",
   "repository": {
     "type": "git",
@@ -38,10 +38,11 @@
     "@rollup/plugin-replace": "^6.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.1",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "19.1.6",
+    "@types/react-dom": "18.3.1",
     "obsidian": "^1.8.7",
-    "react": "^18.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "rollup": "^4.24.2",
     "rollup-plugin-visualizer": "^5.12.0",
     "tslib": "^2.8.0",

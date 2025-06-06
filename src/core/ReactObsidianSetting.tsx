@@ -37,7 +37,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
     addMultiDesc,
     setupSettingManually,
 }) => {
-    const settingRef = React.useRef<ReactSetting>();
+    const settingRef = React.useRef<ReactSetting | null>(null);
     const containerRef = React.useRef<HTMLDivElement>(null);
 
     const setupSetting = useCallback(
@@ -278,7 +278,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
         return () => {
             containerRef.current?.empty();
         };
-    }, [[
+    }, [
         name,
         desc,
         setHeading,
@@ -299,7 +299,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
         addProgressBars,
         addMultiDesc,
         setupSettingManually
-    ]]);
+    ]);
 
     return (
         <SettingWrapper
