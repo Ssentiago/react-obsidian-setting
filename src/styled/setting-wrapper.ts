@@ -14,6 +14,24 @@ export const SettingWrapper = styled.div<{ $noBorder?: boolean }>`
             color: var(--text-on-accent) !important;
         }
 
+        .setting-item .clickable-icon {
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .setting-item .clickable-icon:hover {
+            color: var(--text-normal);
+        }
+
+        .setting-item input[type='text'],
+        .setting-item input[type='number'] {
+            background-color: var(--background-secondary);
+            border: 1px solid var(--background-modifier-border);
+            border-radius: 4px;
+            padding: 6px 8px;
+            width: 100%;
+        }
+
         &:last-child {
             border-bottom: none !important;
         }
