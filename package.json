@@ -1,7 +1,7 @@
 {
   "name": "react-obsidian-setting",
-  "packageManager": "yarn@4.3.1",
-  "version": "1.0.32",
+  "packageManager": "yarn@4.9.2",
+  "version": "1.0.42",
   "main": "./src/main.ts",
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "lint": "yarn eslint src --ext .ts"
   },
   "dependencies": {
+    "prettier": "^3.5.3",
     "styled-components": "^6.1.13"
   },
   "devDependencies": {

@@ -20,7 +20,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
     desc,
     setHeading,
     setDisabled,
-                                                                 setTooltip,
+    setTooltip,
     noBorder,
     class: className,
     addToggles,
@@ -53,7 +53,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
             }
 
             if (setTooltip) {
-                setting.setTooltip(setTooltip)
+                setting.setTooltip(setTooltip);
             }
 
             if (addMultiDesc) {
@@ -239,7 +239,7 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
                 }
             });
 
-            setting.setDisabled(!!setDisabled)
+            setting.setDisabled(!!setDisabled);
         },
         [
             name,
@@ -298,12 +298,12 @@ export const ReactObsidianSetting: React.FC<SettingProps> = ({
         addColorPickers,
         addProgressBars,
         addMultiDesc,
-        setupSettingManually
+        setupSettingManually,
     ]);
 
     return (
         <SettingWrapper
-            noBorder={noBorder}
+            $noBorder={noBorder}
             ref={containerRef}
             className={`react-obsidian-settings-item ${className ?? ''}`}
         />
