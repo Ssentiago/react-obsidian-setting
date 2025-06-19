@@ -30,11 +30,24 @@ const ReactObsidianModal = ({
 }: ReactObsidianModalProps): ReactPortal => {
     const modalRoot = document.body;
 
-    const handler = (e: React.KeyboardEvent) => {
+    const reactHandler = (e: React.KeyboardEvent) => {
         if (e.key === 'Escape' && closable) {
             onClose();
         }
     };
+
+    const windowHandler = (e: KeyboardEvent) => {
+        if (e.key === 'Escape' && closable) {
+            onClose();
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('keydown', windowHandler);
+        return () => {
+            window.removeEventListener('keydown', windowHandler);
+        };
+    }, [onClose]);
 
     useEffect(() => {
         onOpen && onOpen();
@@ -69,7 +82,7 @@ const ReactObsidianModal = ({
                 onClick={() => closable && onClose()}
                 style={{ opacity: '0.85' }}
                 aria-hidden="true"
-                onKeyDown={handler}
+                onKeyDown={reactHandler}
             ></div>
             <div className={`modal ${className ?? ''}`}>
                 <div
