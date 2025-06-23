@@ -6,10 +6,9 @@ import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import { visualizer } from 'rollup-plugin-visualizer';
 
-
 const baseConfig = {
     input: 'src/main.ts',
-    external: ['obsidian', 'react'],
+    external: ['obsidian', 'react', 'react-dom'],
     plugins: [
         json(),
         nodeResolve({
@@ -31,9 +30,7 @@ const developmentConfig = {
         format: 'cjs',
         exports: 'auto',
     },
-    plugins: [
-        ...baseConfig.plugins,
-    ],
+    plugins: [...baseConfig.plugins],
 };
 
 const productionConfig = {
